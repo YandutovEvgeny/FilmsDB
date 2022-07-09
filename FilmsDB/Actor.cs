@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace FilmsDB
 {
-    class MyFilm
+    class Actor
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Annotation { get; set; }
-        public string Status { get; set; }
-        public string Photo { get; set; }
-        public List<Actor> Actors { get; set; }
+        public DateTime BDay { get; set; }
     }
 }

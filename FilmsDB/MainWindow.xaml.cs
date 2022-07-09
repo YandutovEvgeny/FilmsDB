@@ -57,12 +57,33 @@ namespace FilmsDB
             {
                 int i = LBNames.SelectedIndex;
                 LName.Content = context.Films.ToList()[i].Name;
-                IPhoto.Source = new BitmapImage(new Uri(context.Films.ToList()[i].Photo));
+                if (context?.Films.ToList()[i].Photo != "")
+                    IPhoto.Source = new BitmapImage(new Uri(context.Films.ToList()[i].Photo));
+                else
+                    IPhoto.Source = null;
                 TBAnnotation.Text = context.Films.ToList()[i].Annotation;
-                if (context.Films.ToList()[i].Status == "Посмотрено")
+                if (context.Films.ToList()[i].Status == "Просмотрено")
                     LName.Foreground = new SolidColorBrush(Color.FromRgb(0, 200, 0));
                 else
                     LName.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            InsertFilm insertFilm = new InsertFilm();
+            insertFilm.ShowDialog();
+            RefreshList();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if(LBNames.SelectedIndex != -1) //Если мы что-то выделили
+            {
+                MyFilm film = context.Films.ToList()[LBNames.SelectedIndex];
+                film.Status = "Просмотрено";
+                context.SaveChanges();
+                RefreshList();
             }
         }
     }
